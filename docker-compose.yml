@@ -1,0 +1,53 @@
+version: '3'
+
+services:
+    web:
+        image: nginx:latest
+        volumes:
+            - ./:/var/www
+            - ./_docker/nginx/conf.d:/etc/nginx/conf.d
+        ports:
+            - "8876:80"
+        depends_on:
+            - app
+        networks:
+            - my_network
+        container_name: app_nginx
+    db:
+        image: mariadb:10.6
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: laravel
+        ports:
+            - "8101:3306"
+        networks:
+            - my_network
+        command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
+
+    phpmyadmin:
+        image: phpmyadmin
+        restart: always
+        ports:
+            - "8080:80"
+        environment:
+            - PMA_ARBITRARY=1
+        depends_on:
+            - db
+        networks:
+            - my_network
+    app:
+        container_name: app
+        build:
+            context: .
+            dockerfile: _docker/app/Dockerfile
+        volumes:
+            - .:/var/www
+        depends_on:
+            - db
+        networks:
+            - my_network
+
+networks:
+    my_network:
+        driver: bridge
