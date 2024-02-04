@@ -33,7 +33,6 @@ class AbiturentFactory extends Factory
             'date_of_birth' => $this->faker->date,
             'phone_number' => $this->faker->phoneNumber,
             'email' => $this->faker->unique()->safeEmail,
-            // Add other fields as needed
         ];
     }
 }

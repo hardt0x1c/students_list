@@ -15,8 +15,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'App\Http\Controllers\AbiturentController@index')->name('abiturent.index');
 
-Route::get('/make', 'App\Http\Controllers\AbiturentController@makeAbiturents');
-
 Route::get('/abiturents', 'App\Http\Controllers\AbiturentController@index')->name('abiturents.index');
 
 Route::get('/abiturents/{id}', 'App\Http\Controllers\AbiturentController@show')->name('abiturents.show');
