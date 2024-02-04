@@ -10,8 +10,6 @@ services:
             - "8876:80"
         depends_on:
             - app
-        networks:
-            - my_network
         container_name: app_nginx
     db:
         image: mariadb:10.6
@@ -21,8 +19,6 @@ services:
             MYSQL_DATABASE: laravel
         ports:
             - "8101:3306"
-        networks:
-            - my_network
         command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
 
     phpmyadmin:
@@ -34,20 +30,13 @@ services:
             - PMA_ARBITRARY=1
         depends_on:
             - db
-        networks:
-            - my_network
     app:
         container_name: app
         build:
             context: .
             dockerfile: _docker/app/Dockerfile
+        user: '1000:1000'
         volumes:
             - .:/var/www
         depends_on:
             - db
-        networks:
-            - my_network
-
-networks:
-    my_network:
-        driver: bridge
