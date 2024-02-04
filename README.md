@@ -4,7 +4,7 @@
 
 * Создать файл .env из .env.example
 * В .env вставить эти строки `DB_CONNECTION=mysql DB_HOST=db DB_PORT=3306 DB_DATABASE=laravel DB_USERNAME=root DB_PASSWORD=root`
-* В папке проекта запустить docker compose up -d
+* В папке проекта запустить `docker compose up -d`
 * Прописать команду для входа в контейнер `docker exec -it app bash`
     * `composer install`
     * `php artisan key:generate`
